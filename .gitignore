@@ -1,0 +1,23 @@
+*.pyc
+__pycache__/
+
+.idea/
+
+# Temporary files
+*.tmp
+*.log
+
+# Environment files
+.env
+
+# Minikube files
+*.minikube/
+
+# Docker volumes
+volumes/
+
+# Environments
+venv/
+
+# Unit test
+.pytest_cache/

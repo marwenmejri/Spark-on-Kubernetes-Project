@@ -1,0 +1,21 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: spark-job
+spec:
+  template:
+    metadata:
+      labels:
+        app: spark-job
+    spec:
+      containers:
+      - name: spark-job
+        image: marwenmejri/spark-job:latest
+        volumeMounts:
+        - name: spark-logs
+          mountPath: /app/Logs/spark-logs
+      restartPolicy: OnFailure
+      volumes:
+      - name: spark-logs
+        persistentVolumeClaim:
+          claimName: spark-logs-pvc

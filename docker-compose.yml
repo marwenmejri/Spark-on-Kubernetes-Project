@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  spark-job:
+    build:
+      context: ./
+      dockerfile: ./docker/Dockerfile-spark-job
+    volumes:
+      - ./sample_data:/app/sample_data
+      - ./Logs/spark-logs:/app/Logs/spark-logs
+    networks:
+      - spark-network
+
+  spark-history-server:
+    build:
+      context: ./
+      dockerfile: ./docker/Dockerfile-spark-history-server
+    volumes:
+      - ./Logs/spark-logs:/tmp/spark-events
+    networks:
+      - spark-network
+    ports:
+      - "18080:18080"
+
+networks:
+  spark-network:
+    driver: bridge

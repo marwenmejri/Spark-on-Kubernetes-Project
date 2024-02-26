@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spark-history-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: spark-history-server
+  template:
+    metadata:
+      labels:
+        app: spark-history-server
+    spec:
+      containers:
+      - name: spark-history-server
+        image: marwenmejri/spark-history-server:latest
+        ports:
+        - containerPort: 18080
+        volumeMounts:
+        - name: spark-logs
+          mountPath: /tmp/spark-events
+      volumes:
+      - name: spark-logs
+        persistentVolumeClaim:
+          claimName: spark-logs-pvc
